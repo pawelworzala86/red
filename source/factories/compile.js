@@ -12,6 +12,7 @@
             scope.watch( watch, (old,val) => {
                 callback(text.replace(new RegExp(match,"gm"),val));
             });
+            callback(text.replace(new RegExp(match,"gm"),scope[watch]));
             return scope[watch]
         })
         /*while ((match = reg["exec"](text)) !== null) {
@@ -57,7 +58,7 @@
                     }
                 } else {
                     parse(scope,elem, attrValue, (txt) => {
-                        elem.setAttribute(attr, txt);
+                        elem.innerHTML = txt
                     });
                     //return true
                 }
@@ -72,10 +73,10 @@
             /*if((!elem)||(typeof elem==="string")){
                 return
             }*/
-            if (elem.nodeName !== "#text") {
-                directive(elem)
-                return
-            }
+            //if (elem.nodeName !== "#text") {
+            //    directive(elem)
+            //    return
+            //}
             
             if (elem.childNodes.length === 1) {
                 parse(scope,elem, elem.innerHTML, (txt) => {
