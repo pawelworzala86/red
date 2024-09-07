@@ -2,7 +2,7 @@
 
     //function watch(){}
     
-      /*  Object.prototype.watch = function (prop, handler) {
+        Object.prototype.watch = function (prop, handler) {
             const self = this
             !self.handlers ? self.handlers = [] : null;
             !self.handlers[prop] ? self.handlers[prop] = [] : null
@@ -10,7 +10,7 @@
             if (self.hasOwnProperty(prop) && !self.hasOwnProperty('_' + prop)) {
                 self['_' + prop] = self[prop]
                 try{
-                //delete(self[prop])
+                delete(self[prop])
                 }catch(e){}
             }
             if (!self.hasOwnProperty(prop)) {
@@ -24,15 +24,17 @@
                         self['_' + prop] = value
                     },
                 })
+            }else{
+                self.handlers[prop].push(handler)
             }
-        }*/
+        }
     
     
         ///////////////////////////////////////////
     
     
       
-    
+    /*
             Object.prototype.watch = function (prop, handler) {
     
                 let helper = this.helper
@@ -67,7 +69,7 @@
           
             }
     
-    
+    */
     //}
 
 }
