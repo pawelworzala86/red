@@ -2,7 +2,11 @@
     //document.addEventListener('load',function(){
 
     var rootScope = {
-        title: ':)'
+        title: ':)',
+        array:[
+            {name: 'test 1'},
+            {name: 'test 2'}
+        ]
     }
 
 

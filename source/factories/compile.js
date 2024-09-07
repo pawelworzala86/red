@@ -73,10 +73,10 @@
             /*if((!elem)||(typeof elem==="string")){
                 return
             }*/
-            //if (elem.nodeName !== "#text") {
-            //    directive(elem)
-            //    return
-            //}
+            if (elem.nodeName !== "#text") {
+                directive(elem)
+                //return
+            }
             
             if (elem.childNodes.length === 1) {
                 parse(scope,elem, elem.innerHTML, (txt) => {
