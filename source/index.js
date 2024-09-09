@@ -1,5 +1,4 @@
 {
-    //document.addEventListener('load',function(){
 
     var rootScope = {
         title: ':)',
@@ -10,15 +9,8 @@
     }
 
 
+    var view = document.querySelector('view')
 
+    node('compile')(view, rootScope)
 
-        var body = document.querySelector('view')
-
-        console.log(body)
-
-    node('compile')(body, rootScope)
-
-
-
-    //})
 }
