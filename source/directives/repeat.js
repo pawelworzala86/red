@@ -48,7 +48,7 @@
             scope[attr].map(v=>{ fill(v) })
         }
         scope.watch(attr, (old,val) => {
-            //parent.innerHTML = ""
+            parent.innerHTML = ""
             val.map(v=>{ fill(v) })
         })
         element.remove();

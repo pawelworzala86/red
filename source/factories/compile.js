@@ -6,7 +6,7 @@
         //let matches = [];
         //let match;
         let text = source;
-        const reg = new RegExp("{{([a-zA-Z0-9]+)}}","gm")
+        const reg = new RegExp("{{([a-zA-Z0-9\_\-]+)}}","gm")
         return text.replace(reg,match=>{
             const watch=match.substring(2,match["length"]-2)
             scope.watch( watch, (old,val) => {
