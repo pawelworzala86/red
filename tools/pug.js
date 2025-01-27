@@ -1,6 +1,6 @@
 fs = require('fs')
 
-let pug = fs.readFileSync('./views/landing.pug').toString()
+let pug = fs.readFileSync('./tools/landing.pug').toString()
 
 
 function parsePug(pug){
@@ -63,4 +63,4 @@ function parsePug(pug){
 
 let html = parsePug(pug)
 
-fs.writeFileSync('./landing.html', html)
+fs.writeFileSync('./tools/landing.html', html)
