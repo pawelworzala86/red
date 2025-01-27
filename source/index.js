@@ -1,6 +1,6 @@
 {
 
-    var rootScope = {
+    /*var rootScope = {
         title: ':)',
         array:[
             {name: 'test 1'},
@@ -11,11 +11,23 @@
 
     var view = document.querySelector('view')
 
-    node('compile')(view, rootScope)
+    node('compile')(view, rootScope)*/
 
 
 
     const router = node('router')
+
+    router.register({
+        url: '/',
+        view: 'landing.html',
+        async callback(scope,urlParams){
+            scope.title = ';)'
+            scope.array = [
+                {name: 'test 1'},
+                {name: 'test 2'}
+            ]
+        }
+    })
 
     router.register({
         url: '/hello',
