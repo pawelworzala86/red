@@ -13,10 +13,6 @@ body {
     flex-direction: column;
     flex-wrap: nowrap;
 }
-.flex.col{
-    
-}
-
 
 nav .link{
     margin-right: 8px;
