@@ -65,19 +65,19 @@ function parsePug(pug){
                 newspaces = lines[index+1].replace(lines[index+1].trim(),'').replace(/\n|\r\n|\r/gm,'')
                 newspaces=newspaces.length/4
             }
-            if((newspaces<=spaces)&&(lastSpaces==spaces)){
+            if(newspaces<spaces){
                 //close = `</${lastTags[spaces]}>`
-                close = `</${lastTags[lastSpaces]}>`
+                close = `\n</${lastTags[lastSpaces]}>`
             }
-            if(lastSpaces<=spaces){
-                end = `</${lastTags[lastSpaces]}>\n`
+            if((lastSpaces<=spaces)&&(close.length)){
+                end = `</${lastTags[spaces]}>`
             }
             lastSpaces = spaces
             let nspc = ''
             for(let i=0;i<spaces*4;i++){
                 nspc += ' '
             }
-            result+=`${close}${nspc}<${tag}${attributes}>${content}${end}`
+            result+=`${nspc}<${tag}${attributes}>${content}${end}${close}`
         }
         return result
     })
