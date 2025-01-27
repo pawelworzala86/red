@@ -42,7 +42,7 @@ function parsePug(pug){
             content.splice(0,1)
             content = parts.join(' ').trim()
             tagAttrs=tagAttrs.map(tag=>{
-                tag[1]= tag[1].replace(/\"|\'/gm,'')
+                tag[1]= tag[1].replace(/\"/gm,'')
                 return tag
             })
             if(id.length){

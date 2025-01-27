@@ -1,11 +1,20 @@
-<h1 attr1="test" class="">Hello world!!! {{title}}
-<div red-repeat="array" class="">
-    <h3 class="">{{name}}</h3>
-</h3>
-<input red-model="title" class="">
-<div class=" test1 test2">kuku
-    <div class=" kuku">
-        <div class=" dd"></div>
+<div class=" flex row">
+    <div red-repeat="data" class="">
+        <div red-if="this.type" class="">
+            <h1 class="">{{title}}
+            <div red-repeat="content" class="">
+                <p class="">{{text}}</p>
     </div>
 </div>
-<div class=" ddd"></div>
+        <div red-if="this.type" class="">
+            <h3 class="">{{title}}
+            <h4 class="">{{subtitle}}</h4>
+</div>
+        <div red-if="this.type" class="">
+            <h3 class="">{{title}}
+            <div red-repeat="content" class="">
+                <p class="">{{text}}</p>
+            </p>
+        </div>
+    </div>
+</div></div>
