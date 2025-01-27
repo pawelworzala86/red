@@ -65,9 +65,9 @@ function parsePug(pug){
                 newspaces = lines[index+1].replace(lines[index+1].trim(),'').replace(/\n|\r\n|\r/gm,'')
                 newspaces=newspaces.length/4
             }
-            if((newspaces<=spaces)||(lastSpaces==spaces)){
+            if((newspaces<=spaces)&&(lastSpaces==spaces)){
                 //close = `</${lastTags[spaces]}>`
-                end = `</${lastTags[spaces]}>`
+                close = `</${lastTags[lastSpaces]}>`
             }
             if(lastSpaces>spaces){
                 close = `</${lastTags[lastSpaces]}>\n`
