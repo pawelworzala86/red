@@ -1,8 +1,9 @@
-body {
+body,input {
     font-family: "Montserrat", serif;
     font-optical-sizing: auto;
     font-weight: 400;
     color: #222;
+    font-size: 18px;
 }
 
 .flex {
@@ -22,4 +23,14 @@ a{
     text-decoration: none;
     color: rgb(116, 9, 59);
     font-weight: 500;
+}
+
+input{
+    outline: none;
+    border: 1px solid #ccc;
+    padding: 4px;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-weight: 400;
 }

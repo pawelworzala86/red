@@ -9,7 +9,7 @@
     }
 
 
-    var view = document.querySelector('header')
+    var view = document.querySelector('html')
 
     node('compile')(view, rootScope)
 
