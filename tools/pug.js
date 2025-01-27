@@ -2,13 +2,15 @@ fs = require('fs')
 
 let pug = fs.readFileSync('./tools/landing.pug').toString()
 
-let lastSpaces = ''
+let lastSpaces = 0
+let lastTags = []
 function parsePug(pug){
     let lines = pug.split('\n')
 
-    lines = lines.map(line=>{
+    lines = lines.map((line,index)=>{
         let spaces = ''
         spaces = line.replace(line.trim(),'').replace(/\n|\r\n|\r/gm,'')
+        spaces=spaces.length/4
         const parts = line.trim().split(' ')
         console.log('parts',parts)
         let tagParts = parts[0].split('(')[0]
@@ -57,20 +59,30 @@ function parsePug(pug){
             }
             let close = ``
             let end = ``
-            if(lastSpaces.length>spaces.length){
-                close = `</div>`
-            }else if(tag!=='div'){
-                end = `</${tag}>`
-            }else if(lastSpaces.length<spaces.length){
-                end = ``
+            lastTags[spaces] = tag
+            let newspaces = 0
+            if(lines[index+1]){
+                newspaces = lines[index+1].replace(lines[index+1].trim(),'').replace(/\n|\r\n|\r/gm,'')
+                newspaces=newspaces.length/4
+            }
+            if((newspaces<=spaces)||(lastSpaces==spaces)){
+                //close = `</${lastTags[spaces]}>`
+                end = `</${lastTags[spaces]}>`
+            }
+            if(lastSpaces>spaces){
+                close = `</${lastTags[lastSpaces]}>\n`
             }
             lastSpaces = spaces
-            result+=`${close}${spaces}<${tag}${attributes}>${content}${end}`
+            let nspc = ''
+            for(let i=0;i<spaces*4;i++){
+                nspc += ' '
+            }
+            result+=`${close}${nspc}<${tag}${attributes}>${content}${end}`
         }
-        return result+'</div>'
+        return result
     })
 
-    const html = lines.join('\n')
+    const html = lines.join('\n')+'</div>'
     return html
 }
 
