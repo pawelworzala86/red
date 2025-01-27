@@ -69,8 +69,8 @@ function parsePug(pug){
                 //close = `</${lastTags[spaces]}>`
                 close = `</${lastTags[lastSpaces]}>`
             }
-            if(lastSpaces>spaces){
-                close = `</${lastTags[lastSpaces]}>\n`
+            if(lastSpaces<=spaces){
+                end = `</${lastTags[lastSpaces]}>\n`
             }
             lastSpaces = spaces
             let nspc = ''
