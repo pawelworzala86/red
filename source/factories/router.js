@@ -22,8 +22,11 @@
                     let html = await node('http').get('/views/'+route.view)
 
                     //node('activeScope',scope)
-
-                    await route.callback(scope,res.groups)
+                    let FACTORY = node('FACTORY')
+                    FACTORY.scope = ()=>scope
+                    FACTORY.urlParams = ()=>res.groups
+                    await node('DI')(FACTORY,route.callback)
+                    //await route.callback(scope,res.groups)
 
                     //console.log(html)
                     var view = document.querySelector('view')
