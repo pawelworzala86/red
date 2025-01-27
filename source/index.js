@@ -21,11 +21,9 @@
         url: '/',
         view: 'landing.html',
         async callback(scope,urlParams){
-            scope.title = ';)'
-            scope.array = [
-                {name: 'test 1'},
-                {name: 'test 2'}
-            ]
+            const data = await node('http').get('/api/landing')
+            //console.log(data)
+            scope.data = data
         }
     })
 

@@ -1,6 +1,6 @@
 const texts = [
     {
-        type:'block',
+        type:'hero',
         title:'Paweł Worzała',
         content: [
             {
@@ -13,8 +13,8 @@ const texts = [
     },
     {
         type:'heading',
-        title:'JavaScript',
-        subtitle:'JavaScript',
+        title:'Moje umiejętności',
+        subtitle:'Znajomość języków i środowisk',
     },
     {
         type:'block',

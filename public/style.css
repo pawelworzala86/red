@@ -21,8 +21,8 @@ nav .link{
 
 a{
     text-decoration: none;
-    color: rgb(116, 9, 59);
-    font-weight: 500;
+    color: #f00;
+    font-weight: 400;
 }
 
 input{
@@ -32,5 +32,17 @@ input{
 }
 
 h1,h2,h3,h4,h5,h6{
+    font-weight: 400;
+}
+h1{
+    font-weight: 300;
+}
+
+.hide{
+    display: none;
+}
+
+p{
+    font-size: 0.95em;
     font-weight: 400;
 }

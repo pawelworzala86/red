@@ -12,6 +12,9 @@
             scope.watch( watch, (old,val) => {
                 callback(text.replace(new RegExp(match,"gm"),val));
             });
+            if(scope[watch]==undefined){
+                return match
+            }
             callback(text.replace(new RegExp(match,"gm"),scope[watch]));
             return scope[watch]
         })
