@@ -34,6 +34,7 @@
             //elem.innerHTML = element.html;
     
             //elem.scope=row
+            elem = elem.children[0]
             parent.append(elem);
             compile(elem, row);
             /*if (element.tagName === "OPTION") {

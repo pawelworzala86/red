@@ -1,17 +1,17 @@
 {
 
-    /*var rootScope = {
-        title: ':)',
-        array:[
-            {name: 'test 1'},
-            {name: 'test 2'}
+    var rootScope = {
+        menu:[
+            {url: '/', title: 'Home'},
+            {url: '/hello', title: 'Hello'},
+            {url: '/test', title: 'Test'},
         ]
     }
 
 
-    var view = document.querySelector('view')
+    var view = document.querySelector('header')
 
-    node('compile')(view, rootScope)*/
+    node('compile')(view, rootScope)
 
 
 

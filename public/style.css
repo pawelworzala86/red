@@ -1,0 +1,29 @@
+body {
+    font-family: "Montserrat", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    color: #222;
+}
+
+.flex {
+    display: flex;
+}
+.flex.row {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.flex.col{
+    
+}
+
+
+nav .link{
+    margin-right: 8px;
+}
+
+a{
+    text-decoration: none;
+    color: rgb(116, 9, 59);
+    font-weight: 500;
+}

@@ -3,6 +3,7 @@
         routes:[],
         async navigate(urlRoute){
             //console.log(url)
+            let routed = false
             for(const route of this.routes){
                 let url = route.url
 
@@ -30,8 +31,17 @@
 
                     node('compile')(view, scope)
 
+                    routed = true
+
                     break;
                 }
+            }
+            if(!routed){
+                let scope = {}
+                let html = await node('http').get('/views/404.html')
+                var view = document.querySelector('view')
+                view.innerHTML = html
+                node('compile')(view, scope)
             }
         },
         register(route){
