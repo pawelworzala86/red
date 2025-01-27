@@ -66,11 +66,16 @@ function parsePug(pug){
                 newspaces=newspaces.length/4
             }
             if(newspaces<spaces){
-                //close = `</${lastTags[spaces]}>`
-                close = `\n</${lastTags[lastSpaces]}>`
+                for(let i=newspaces;i<spaces;i++){
+                    let nspc = ''
+                    for(let ii=i+1;ii<spaces;ii++){
+                        nspc += '    '
+                    }
+                    close += `\n${nspc}</${lastTags[spaces-i]}>`
+                }
             }
             if((lastSpaces<=spaces)&&(close.length)){
-                end = `</${lastTags[spaces]}>`
+                end += `</${lastTags[spaces]}>`
             }
             lastSpaces = spaces
             let nspc = ''
