@@ -2,6 +2,7 @@
     const router = {
         routes:[],
         async navigate(urlRoute){
+            const parsePug = node('parsePug')
             //console.log(url)
             let routed = false
             for(const route of this.routes){
@@ -19,7 +20,10 @@
 
                     let scope = {}
 
-                    let html = await node('http').get('/views/'+route.view)
+                    let html= await node('http').get('/views/'+route.view)
+                    if(route.view.indexOf('.pug')>-1){
+                        html = parsePug(html)
+                    }
 
                     //node('activeScope',scope)
                     let FACTORY = node('FACTORY')

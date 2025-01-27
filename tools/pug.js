@@ -2,7 +2,7 @@ fs = require('fs')
 
 let pug = fs.readFileSync('./tools/landing.pug').toString()
 
-
+let lastSpaces = ''
 function parsePug(pug){
     let lines = pug.split('\n')
 
@@ -27,7 +27,7 @@ function parsePug(pug){
         }else{
             tagAttrs = []
         }
-        let elementParts = /([\w]+)?(\#[\w]+)?(\.[\w]+)?/gm.exec(tagParts)
+        let elementParts = /([\w]+)?(\#[\w]+)?([\.\w]+)?/gm.exec(tagParts)
         console.log('elementParts',elementParts)
         let result = ''
         if((elementParts[1]==undefined)&&(elementParts[2]==undefined)&&(elementParts[3]==undefined)){
@@ -35,25 +35,39 @@ function parsePug(pug){
         }else{
             let tag = elementParts[1]??'div'
             let id = elementParts[2]??''
-            let className = elementParts[3]??''
+            let classNames = (elementParts[3]??'').split('.')
             let content = parts
             content.splice(0,1)
             content = parts.join(' ').trim()
+            tagAttrs=tagAttrs.map(tag=>{
+                tag[1]= tag[1].replace(/\"|\'/gm,'')
+                return tag
+            })
             if(id.length){
                 tagAttrs.push(['id',id])
             }
-            if(className.length){
-                tagAttrs.push(['class',className])
+            if(classNames.length){
+                tagAttrs.push(['class',classNames.join(' ')])
             }
             let attributes = tagAttrs.map(attr=>{
-                return `${attr[0]}=${attr[1]}`
+                return `${attr[0]}="${attr[1]}"`
             }).join(' ')
             if(attributes.length){
                 attributes=' '+attributes
             }
-            result+=`${spaces}<${tag}${attributes}>${content}</${tag}>`
+            let close = ``
+            let end = ``
+            if(lastSpaces.length>spaces.length){
+                close = `</div>`
+            }else if(tag!=='div'){
+                end = `</${tag}>`
+            }else if(lastSpaces.length<spaces.length){
+                end = ``
+            }
+            lastSpaces = spaces
+            result+=`${close}${spaces}<${tag}${attributes}>${content}${end}`
         }
-        return result
+        return result+'</div>'
     })
 
     const html = lines.join('\n')
