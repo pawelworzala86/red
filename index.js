@@ -10,10 +10,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-const landing = require('./landing.js')
-
 app.get('/api/landing', function (req, res) {
+    const landing = require('./landing.js')
     res.json(landing)
+})
+app.get('/api/article', function (req, res) {
+    const article = require('./article.js')
+    res.json(article)
 })
 
 app.get('/*', function (req, res) {

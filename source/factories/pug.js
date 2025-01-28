@@ -1,7 +1,21 @@
 {
     let lastSpaces = 0
     let lastTags = []
-    function parsePug(pug){
+    async function parsePug(pug){
+
+        let imports = []
+        pug = pug.replace(/\{\{import \'.*\'\}\}/gm,match=>{
+            let file = match.split('\'')[1].replace('\'','')
+            console.log('import', file)
+            imports.push(file)
+            return match
+        })
+        for(const imp of imports){
+            let code = await node('http').get(imp)
+            pug = pug.replace(new RegExp("\\{\\{import \\'"+imp+"\\'\\}\\}",'gm'),`\n${code}\n`)
+        }
+        console.log('pug',pug)
+
         let lines = pug.split('\n')
     
         lines = lines.map((line,index)=>{
@@ -9,7 +23,7 @@
             spaces = line.replace(line.trim(),'').replace(/\n|\r\n|\r/gm,'')
             spaces=spaces.length/4
             const parts = line.trim().split(' ')
-            console.log('parts',parts)
+            //console.log('parts',parts)
             let tagParts = parts[0].split('(')[0]
             let tagAttrs
             if(parts[0]){
@@ -27,7 +41,7 @@
                 tagAttrs = []
             }
             let elementParts = /([\w]+)?(\#[\w]+)?([\.\w]+)?/gm.exec(tagParts)
-            console.log('elementParts',elementParts)
+            //console.log('elementParts',elementParts)
             let result = ''
             if((elementParts[1]==undefined)&&(elementParts[2]==undefined)&&(elementParts[3]==undefined)){
                 return line

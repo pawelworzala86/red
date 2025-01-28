@@ -5,6 +5,7 @@
             {url: '/', title: 'Home'},
             {url: '/hello', title: 'Hello'},
             {url: '/test', title: 'Test'},
+            {url: '/article', title: 'Artykuł'},
         ]
     }
 
@@ -22,6 +23,16 @@
         view: 'landing.pug',
         async callback(scope,urlParams){
             const data = await node('http').get('/api/landing')
+            //console.log(data)
+            scope.data = data
+        }
+    })
+
+    router.register({
+        url: '/article',
+        view: 'article.pug',
+        async callback(scope,urlParams){
+            const data = await node('http').get('/api/article')
             //console.log(data)
             scope.data = data
         }

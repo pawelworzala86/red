@@ -22,7 +22,7 @@
 
                     let html= await node('http').get('/views/'+route.view)
                     if(route.view.indexOf('.pug')>-1){
-                        html = parsePug(html)
+                        html = await parsePug(html)
                     }
 
                     //node('activeScope',scope)
