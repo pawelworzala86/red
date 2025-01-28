@@ -26,11 +26,11 @@
                     }
 
                     //node('activeScope',scope)
-                    let FACTORY = node('FACTORY')
+                    /*let FACTORY = node('FACTORY')
                     FACTORY.scope = ()=>scope
                     FACTORY.urlParams = ()=>res.groups
-                    await node('DI')(FACTORY,route.callback)
-                    //await route.callback(scope,res.groups)
+                    await node('DI')(FACTORY,route.callback)*/
+                    await route.callback(scope,res.groups)
 
                     //console.log(html)
                     var view = document.querySelector('view')
