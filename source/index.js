@@ -19,7 +19,7 @@
 
     router.register({
         url: '/',
-        view: 'landing.html',
+        view: 'landing.pug',
         async callback(scope,urlParams){
             const data = await node('http').get('/api/landing')
             //console.log(data)

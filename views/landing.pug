@@ -1,0 +1,13 @@
+.flex.row
+    div(red-repeat="data")
+        div(red-if="this.type=='hero'")
+            h1 {{title}}
+            div(red-repeat="content")
+                p {{text}}
+        div(red-if="this.type=='heading'")
+            h3 {{title}}
+            h4 {{subtitle}}
+        div(red-if="this.type=='block'")
+            h3 {{title}}
+            div(red-repeat="content")
+                p {{text}}

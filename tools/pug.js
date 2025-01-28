@@ -21,10 +21,10 @@ function parsePug(pug){
         }
         if(tagAttrs){
             tagAttrs=tagAttrs.substring(0,tagAttrs.length-1)
-            //console.log('tagAttrs',tagAttrs)
+            console.log('tagAttrs',tagAttrs)
             tagAttrs = tagAttrs.split(';')
             tagAttrs = tagAttrs.map(attr=>{
-                return attr.split('=')
+                return attr.split(/=(.+)/)
             })
         }else{
             tagAttrs = []
@@ -49,7 +49,10 @@ function parsePug(pug){
                 tagAttrs.push(['id',id])
             }
             if(classNames.length){
-                tagAttrs.push(['class',classNames.join(' ')])
+                let clsNames = classNames.join(' ').trim()
+                if(clsNames.length){
+                    tagAttrs.push(['class',clsNames])
+                }
             }
             let attributes = tagAttrs.map(attr=>{
                 return `${attr[0]}="${attr[1]}"`
@@ -65,17 +68,24 @@ function parsePug(pug){
                 newspaces = lines[index+1].replace(lines[index+1].trim(),'').replace(/\n|\r\n|\r/gm,'')
                 newspaces=newspaces.length/4
             }
+            if(lastSpaces<=spaces){
+                end += `</${lastTags[spaces]}>`
+            }
             if(newspaces<spaces){
                 for(let i=newspaces;i<spaces;i++){
                     let nspc = ''
                     for(let ii=i+1;ii<spaces;ii++){
                         nspc += '    '
                     }
-                    close += `\n${nspc}</${lastTags[spaces-i]}>`
+                    close += `\n${nspc}</${lastTags[spaces-i-1]}>`
                 }
+                end = ``
             }
-            if((lastSpaces<=spaces)&&(close.length)){
-                end += `</${lastTags[spaces]}>`
+            if(newspaces<spaces){
+                end = `</${lastTags[spaces]}>`
+            }
+            if(newspaces>spaces){
+                end = ``
             }
             lastSpaces = spaces
             let nspc = ''
@@ -87,7 +97,7 @@ function parsePug(pug){
         return result
     })
 
-    const html = lines.join('\n')+'</div>'
+    const html = lines.join('\n')
     return html
 }
 

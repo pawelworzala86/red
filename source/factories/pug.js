@@ -1,10 +1,13 @@
 {
+    let lastSpaces = 0
+    let lastTags = []
     function parsePug(pug){
         let lines = pug.split('\n')
     
-        lines = lines.map(line=>{
+        lines = lines.map((line,index)=>{
             let spaces = ''
             spaces = line.replace(line.trim(),'').replace(/\n|\r\n|\r/gm,'')
+            spaces=spaces.length/4
             const parts = line.trim().split(' ')
             console.log('parts',parts)
             let tagParts = parts[0].split('(')[0]
@@ -15,10 +18,10 @@
             }
             if(tagAttrs){
                 tagAttrs=tagAttrs.substring(0,tagAttrs.length-1)
-                //console.log('tagAttrs',tagAttrs)
+                console.log('tagAttrs',tagAttrs)
                 tagAttrs = tagAttrs.split(';')
                 tagAttrs = tagAttrs.map(attr=>{
-                    return attr.split('=')
+                    return attr.split(/=(.+)/)
                 })
             }else{
                 tagAttrs = []
@@ -36,14 +39,17 @@
                 content.splice(0,1)
                 content = parts.join(' ').trim()
                 tagAttrs=tagAttrs.map(tag=>{
-                    tag[1]= tag[1].replace(/\"|\'/gm,'')
+                    tag[1]= tag[1].replace(/\"/gm,'')
                     return tag
                 })
                 if(id.length){
                     tagAttrs.push(['id',id])
                 }
                 if(classNames.length){
-                    tagAttrs.push(['class',classNames.join(' ')])
+                    let clsNames = classNames.join(' ').trim()
+                    if(clsNames.length){
+                        tagAttrs.push(['class',clsNames])
+                    }
                 }
                 let attributes = tagAttrs.map(attr=>{
                     return `${attr[0]}="${attr[1]}"`
@@ -51,7 +57,39 @@
                 if(attributes.length){
                     attributes=' '+attributes
                 }
-                result+=`${spaces}<${tag}${attributes}>${content}</${tag}>`
+                let close = ``
+                let end = ``
+                lastTags[spaces] = tag
+                let newspaces = 0
+                if(lines[index+1]){
+                    newspaces = lines[index+1].replace(lines[index+1].trim(),'').replace(/\n|\r\n|\r/gm,'')
+                    newspaces=newspaces.length/4
+                }
+                if(lastSpaces<=spaces){
+                    end += `</${lastTags[spaces]}>`
+                }
+                if(newspaces<spaces){
+                    for(let i=newspaces;i<spaces;i++){
+                        let nspc = ''
+                        for(let ii=i+1;ii<spaces;ii++){
+                            nspc += '    '
+                        }
+                        close += `\n${nspc}</${lastTags[spaces-i-1]}>`
+                    }
+                    end = ``
+                }
+                if(newspaces<spaces){
+                    end = `</${lastTags[spaces]}>`
+                }
+                if(newspaces>spaces){
+                    end = ``
+                }
+                lastSpaces = spaces
+                let nspc = ''
+                for(let i=0;i<spaces*4;i++){
+                    nspc += ' '
+                }
+                result+=`${nspc}<${tag}${attributes}>${content}${end}${close}`
             }
             return result
         })

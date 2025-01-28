@@ -1,20 +1,20 @@
-<div class=" flex row">
-    <div red-repeat="data" class="">
-        <div red-if="this.type" class="">
-            <h1 class="">{{title}}
-            <div red-repeat="content" class="">
-                <p class="">{{text}}</p>
+<div class="flex row">
+    <div red-repeat="data">
+        <div red-if="this.type=='hero'">
+            <h1>{{title}}</h1>
+            <div red-repeat="content">
+                <p>{{text}}</p>
     </div>
 </div>
-        <div red-if="this.type" class="">
-            <h3 class="">{{title}}
-            <h4 class="">{{subtitle}}</h4>
+        <div red-if="this.type=='heading'">
+            <h3>{{title}}</h3>
+            <h4>{{subtitle}}</h4>
 </div>
-        <div red-if="this.type" class="">
-            <h3 class="">{{title}}
-            <div red-repeat="content" class="">
-                <p class="">{{text}}</p>
-            </p>
+        <div red-if="this.type=='block'">
+            <h3>{{title}}</h3>
+            <div red-repeat="content">
+                <p>{{text}}</p>
+            </div>
         </div>
     </div>
-</div></div>
+</div>
