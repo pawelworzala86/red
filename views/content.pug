@@ -10,4 +10,7 @@
         div(red-if="this.type=='block'")
             h3 {{title}}
             div(red-repeat="content")
-                p {{text}}
+                div(red-if="this.type=='text'")
+                    p {{text}}
+                div(red-if="this.type=='code'")
+                    pre {{text}}
